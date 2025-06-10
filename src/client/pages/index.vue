@@ -1,5 +1,5 @@
 <template>
-  Hllo you
+  <div id="game-container"></div>
 </template>  
 <script>
   module.exports = {
@@ -7,9 +7,11 @@
     },
     data() {
       return {
+        store
       }
     },
-    mounted () {    
+    mounted () {
+      store.StartPhaserGame()
     }
   }
 </script>
