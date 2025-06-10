@@ -8,34 +8,54 @@ const store = reactive(
         },
         StartPhaserGame()
         {
-            class Example extends Phaser.Scene
+            class Game extends Phaser.Scene
             {
                 preload ()
                 {
-                    this.load.setBaseURL('https://labs.phaser.io');
-
-                    this.load.image('sky', 'assets/skies/space3.png');
-                    this.load.image('logo', 'assets/sprites/phaser3-logo.png');
-                    this.load.image('red', 'assets/particles/red.png');
+                    this.load.image('ship_0001', 'https://cdn.glitch.global/3e033dcd-d5be-4db4-99e8-086ae90969ec/ship_0001.png');
                 }
 
-                create ()
+                create()
                 {
-                    this.add.image(400, 300, 'sky');
+                    const joinGameButton = this.add.text(100, 100, 'Start Battle!', { fill: '#000000' });
+                    joinGameButton.setInteractive();
+                    joinGameButton.on('pointerdown', () => {
+                        joinGameButton.removeAllListeners()
+                        this.JoinGame(); 
+                    });
+                }
 
-                    const particles = this.add.particles(0, 0, 'red', {
-                        speed: 100,
-                        scale: { start: 1, end: 0 },
-                        blendMode: 'ADD'
+                async JoinGame()
+                {
+                    this.room = await store.client.joinOrCreate("game_room");
+
+                    const $ = Colyseus.getStateCallbacks(this.room);
+                    $(this.room.state).players.onAdd((player, sessionId) => {
+                        const entity = this.add.image(player.x, player.y, 'ship_0001');
+                        
+                        if (sessionId === this.room.sessionId)
+                        {
+                            scene.cameras.main.startFollow(entity)
+                        }
                     });
 
-                    const logo = this.physics.add.image(400, 100, 'logo');
+                    this.room.onMessage("start-game", (client, payload) => {
+                        this.createGame()
+                    })
+                }
 
-                    logo.setVelocity(100, 200);
-                    logo.setBounce(1, 1);
-                    logo.setCollideWorldBounds(true);
+                createGame()
+                {
+                    for (let x = 0; x < 1000; x+=100) {
+                        this.add.line(x, 500, 0, 0, 0 , 1000, 0x000000)
+                    }
 
-                    particles.startFollow(logo);
+                    for (let y = 0; y < 1000; y+=100) {
+                        this.add.line(500, y, 0, 0, 1000 , 0, 0x000000)
+                    }
+                }
+
+                update(time, delta) {
                 }
             }
 
@@ -43,7 +63,7 @@ const store = reactive(
                 type: Phaser.AUTO,
                 width: 800,
                 height: 600,
-                scene: Example,
+                scene: Game,
                 parent: 'game-container',
                 backgroundColor: '#FFFFFF',
                 physics: {
