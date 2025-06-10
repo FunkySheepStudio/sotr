@@ -52,8 +52,8 @@
   const router = createRouter({
     history: createWebHistory(),
     routes: [
-      { path: '/index', name: 'Accueil', component: () => loadModule('./pages/index.vue', options) },
-      { path: '/', redirect: { path: "/index" } }
+      { path: '/lobby', name: 'Lobbie', component: () => loadModule('./pages/lobby.vue', options) },
+      { path: '/', redirect: { path: "/lobby" } }
     ],
   })
 

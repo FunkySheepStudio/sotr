@@ -1,6 +1,6 @@
 <template>
   <div id="game-container"></div>
-</template>  
+</template>
 <script>
   module.exports = {
     components: {

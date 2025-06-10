@@ -6,7 +6,7 @@ const store = reactive(
         {
             this.client = new Colyseus.Client("ws://localhost:2567")
         },
-        StartPhaserGame()
+         StartPhaserGame()
         {
             class Game extends Phaser.Scene
             {
@@ -35,7 +35,7 @@ const store = reactive(
                         
                         if (sessionId === this.room.sessionId)
                         {
-                            scene.cameras.main.startFollow(entity)
+                            this.cameras.main.startFollow(entity)
                         }
                     });
 
