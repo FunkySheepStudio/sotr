@@ -6,68 +6,11 @@
   <title>Shadow Of The Rook</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="/favicon.png">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vuetify/3.7.3/vuetify.min.css" integrity="sha512-Gg/N8+5QKNhHeeH8usa9weJbUBnFeBurBgSPt18QZ9rGfbG1Cm5MtzcRKUzQcb+h0CONY0JZ1AXZF8XmkbPjqg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
-<div id="app" />
+<div id="container" />
 </html>
 
-<!--<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.5.12/vue.global.prod.min.js" integrity="sha512-VS0ONvGw4vmxUhn0v3oWvGbKuxcAnhsRs4+EoUzeu7CzXrEaxQTr5SW0VuPk2fU5KzlSOl0x07IB/pLgLnm2Gg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdn.jsdelivr.net/npm/vue3-sfc-loader/dist/vue3-sfc-loader.js" integrity="sha512-+kUoJ6ppYmJdDHZL86KRzeayrtZWJMvixfx7AL/FDjXz2imqVsKER6PCbXyYKilEINL+YkJjKw/0SQjdBYudcQ==" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/vuetify/3.7.3/vuetify.min.js" integrity="sha512-K/mVNsg/NzHJHY3FLIQcDjgf+hpjcJNG21DXkWJ9czx7+5ekj7AOnKaV7kuqTSTHkY5md+RKFCgM5JVe32wL2Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/vue-router/4.4.5/vue-router.global.js" integrity="sha512-qSJykEBMfoCCnGr6PrYrfV6i+HAdkS3+Tl2DcpkpSlIOMjtV2BZ+jDPSJuKL51LjNgXnRlCRcD2ESWRuJRXPGw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdn.jsdelivr.net/npm/colyseus.js@0.16.19/dist/colyseus.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/phaser@3.60.0/dist/phaser-arcade-physics.min.js"></script>
-<script src="./modules/store.js"></script>
-
-<script>
-  const { createApp, watch } = Vue
-  const { loadModule } = window['vue3-sfc-loader']
-
-  const vuetify = Vuetify.createVuetify()
-  
-  const { createRouter, createWebHistory } = VueRouter
-
-  const options = {
-    moduleCache: {
-      vue: Vue
-    },
-    async getFile(url) {
-      
-      const res = await fetch(url);
-      if ( !res.ok )
-        throw Object.assign(new Error(res.statusText + ' ' + url), { res });
-      return {
-        getContentData: asBinary => asBinary ? res.arrayBuffer() : res.text(),
-      }
-    },
-    addStyle(textContent) {
-      const style = Object.assign(document.createElement('style'), { textContent });
-      const ref = document.head.getElementsByTagName('style')[0] || null;
-      document.head.insertBefore(style, ref);
-    },
-  }
-
-  const router = createRouter({
-    history: createWebHistory(),
-    routes: [
-      { path: '/lobby', name: 'Lobbie', component: () => loadModule('./pages/lobby.vue', options) },
-      { path: '/', redirect: { path: "/lobby" } }
-    ],
-  })
-
-  createApp({
-    components: {
-      'defaultLayout': Vue.defineAsyncComponent( () => loadModule('./layouts/index.vue', options) )
-    },
-    data() {
-      return {}
-    },
-    template: '<defaultLayout/>'
-  })
-  .use(store)
-  .use(vuetify)
-  .use(router)
-  .mount('#app')
-</script>
+<script src="//cdn.jsdelivr.net/npm/phaser@3.90.0/dist/phaser.min.js"></script>
+<script type="module" src="./modules/app.js"></script>
