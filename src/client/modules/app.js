@@ -10,12 +10,12 @@ export const App =
   {
     const config = {
         type: Phaser.AUTO,
-        width: 800,
-        height: 800,
+        width: 768,
+        height: 768,
         scene: GameScene,
         parent: 'game-container',
         backgroundColor: '#FFFFFF'
-    };
+      };
 
     App.game = new Phaser.Game(config);
   }
