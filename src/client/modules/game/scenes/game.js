@@ -42,10 +42,30 @@ export default class Game extends Phaser.Scene
 
     createGame()
     {
-        const mapArray = new Array(12).fill(0).map(() => new Array(12).fill(0));
-        this.map = this.make.tilemap({ data: mapArray, tileWidth: 64, tileHeight: 64 });
-        const tiles = this.map.addTilesetImage('tile_base');
-        this.map.createLayer(0, tiles, 0, 0);
+        const mapData = new Phaser.Tilemaps.MapData({
+            width: 10,
+            height: 10,
+            tileWidth: 64,
+            tileHeight: 64,
+            orientation: Phaser.Tilemaps.Orientation.ISOMETRIC,
+            format: Phaser.Tilemaps.Formats.ARRAY_2D
+        });
+
+        const map = new Phaser.Tilemaps.Tilemap(this, mapData);
+
+        const tileset = map.addTilesetImage('tile_base');
+
+        const layer = map.createBlankLayer('layer', tileset, 350, 100);
+
+        const mapArray = new Array(10).fill(0).map(() => new Array(10).fill(0));
+
+        mapArray.forEach((row, x) => {
+
+            row.forEach((tile, y) => {
+
+                layer.putTileAt(tile, x, y);
+            });
+        });
     }
 
     update(time, delta) {
