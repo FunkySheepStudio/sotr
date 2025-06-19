@@ -6,7 +6,11 @@ export default class Game extends Phaser.Scene
     preload ()
     {
         this.load.image('ship_0001', 'https://cdn.glitch.global/3e033dcd-d5be-4db4-99e8-086ae90969ec/ship_0001.png');
-        this.load.image('tile_base', 'assets/tile_base.png');
+        this.load.tilemapTiledJSON("carte", "assets/map.json");
+        //this.load.image('tile_base.png', 'assets/tile_base.png');
+        //this.load.image('tile-gnd-slab-old-civ.png', 'assets/tile-gnd-slab-old-civ.png');
+        this.load.image('tileset-ground', 'assets/tileset-ground.png');
+        this.load.image('tileset-rocks', 'assets/tileset-rocks.png');
     }
 
     create()
@@ -42,30 +46,17 @@ export default class Game extends Phaser.Scene
 
     createGame()
     {
-        const mapData = new Phaser.Tilemaps.MapData({
-            width: 10,
-            height: 10,
-            tileWidth: 64,
-            tileHeight: 64,
-            orientation: Phaser.Tilemaps.Orientation.ISOMETRIC,
-            format: Phaser.Tilemaps.Formats.ARRAY_2D
-        });
+        const map = this.add.tilemap("carte");
 
-        const map = new Phaser.Tilemaps.Tilemap(this, mapData);
+        const tileset1 = map.addTilesetImage(            
+            'tileset-ground'
+        );
 
-        const tileset = map.addTilesetImage('tile_base');
+        const tileset2 = map.addTilesetImage(            
+            'tileset-rocks'
+        );
 
-        const layer = map.createBlankLayer('layer', tileset, 350, 100);
-
-        const mapArray = new Array(10).fill(0).map(() => new Array(10).fill(0));
-
-        mapArray.forEach((row, x) => {
-
-            row.forEach((tile, y) => {
-
-                layer.putTileAt(tile, x, y);
-            });
-        });
+        map.createLayer('0-Lvl', [tileset1, tileset2]);
     }
 
     update(time, delta) {
