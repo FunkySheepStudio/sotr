@@ -41,9 +41,9 @@ export default config({
          * Bind your custom express routes here:
          * Read more: https://expressjs.com/en/starter/basic-routing.html
          */
-        app.use(express.static(path.join(__dirname, '../client')))
+        app.use(express.static(path.join(__dirname, '../client/game')))
         app.get(/(.*)/, (req, res) => {
-            res.sendFile(path.join(__dirname, '../client/index.html'));
+            res.sendFile(path.join(__dirname, '../client/game/index.html'));
         })
     },
 

@@ -56,7 +56,8 @@ export default class Game extends Phaser.Scene
             'tileset-rocks'
         );
 
-        map.createLayer('0-Lvl', [tileset1, tileset2]);
+        map.createLayer('0-Lvl', [tileset1]);
+        map.createLayer('1-Lvl', [tileset2]);
     }
 
     update(time, delta) {
