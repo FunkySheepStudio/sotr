@@ -24,3 +24,4 @@ Colyseus="*res://Colyseus.gd"
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
 textures/vram_compression/import_etc2_astc=true
+environment/defaults/default_clear_color=Color(0.485703, 0.485704, 0.485703, 1)
